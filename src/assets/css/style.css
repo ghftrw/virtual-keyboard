@@ -3,28 +3,36 @@
   margin-top: 50px;
   align-items: center;
   text-align: center;
+  color:#1E2631;
+  font-size: 20px;
 }
 
 .subtitle_area {
   display: flex;
   justify-content: space-around;
+  color:#1E2631;
+  font-size: 20px;
 }
 
 .text {
-  width: 900px;
+  width: 992px;
   height: 250px;
-  border: 1px solid rebeccapurple;
+  border: 1px solid #1D628B;
+  border-radius: 5px;
+  background-color:#F8F9FB;
   align-self:center;
   display: flex;
   flex-wrap: wrap;
   margin: 50px auto;
+  font-size: 20px;
+  color:#1E2631;
 }
 
 .keyboard_area {
   width: 992px;
-  border: 3px solid #60656F;
+  border: 3px solid #1D628B;
   border-radius: 5px;
-  background-color:#B8C5D6;
+  background-color:#73B1D6;
   align-self:center;
   display: flex;
   flex-wrap: wrap;
@@ -34,12 +42,19 @@
 .keys {
   width: 50px;
   height: 50px;
-  border: 1px solid #373F51;
+  border: 1px solid #1D628B;
   border-radius: 5px;
-  background-color:#60656F;
+  background-color:#4589B0;
   margin: 3px;
   padding: 3px;
+  font-style: Arial;
+  font: 1em sans-serif;
+  font-size: 20px;
+  color:#FFFFF7;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items:center;
 }
 
 .key_text {
@@ -48,7 +63,6 @@
   font-weight: 400;
   font-size: 15px;
   text-align: center;
-  color: #FFFFFF;
 }
 
 .clearfix {
@@ -58,11 +72,12 @@
 }
 
 .keys:hover {
-  border: 1px solid #EDF5FC;
+  border: 1px solid #7BBBD6;
+  box-shadow: 0 0 5px #E1F2F9;
 }
 
 .active {
-  background-color:#131112;
+  background-color:#1D628B;
   border-radius: 10px;
 }
 
@@ -82,3 +97,16 @@
   width: 450px;
 }
 
+.ctrl {
+  width: 58px;
+}
+
+.text-upper {
+  text-transform: capitalize;
+}
+
+.caps-active {
+  background-color:#1D628B;
+  border-radius: 20px;
+  color:#A9FFFF;
+}
