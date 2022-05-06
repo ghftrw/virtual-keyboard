@@ -110,3 +110,22 @@
   border-radius: 20px;
   color:#A9FFFF;
 }
+
+.text-ShiftUpper {
+  text-transform: capitalize;
+}
+
+.shift-active1 {
+  background-color:#1D628B;
+  border-radius: 20px;
+  color:#A9FFFF;
+}
+.alt-active {
+  background-color:#1D628B;
+  border-radius: 20px;
+  color:#A9FFFF;
+}
+
+.text-lower {
+  text-transform:lowercase;
+}
