@@ -61,17 +61,19 @@ const init = (lang1) => {
     if (arrCode[i] === 'Tab') {
       enKeys += `<div class="keys tab control" data ="${arrCode[i]}">${chars[i]}</div>`;
     }
+
     if (arrCode[i] === 'Delete') {
       enKeys += `<div class="keys del control" data ="${arrCode[i]}">${chars[i]}</div>`;
     }
+
     if (arrCode[i] === 'ShiftLeft' || arrCode[i] === 'ShiftRight' || arrCode[i] === 'Enter' || arrCode[i] === 'CapsLock') {
-      enKeys += `<div class="keys caps-shift-ent control" data. ="${arrCode[i]}">${chars[i]} </div>`;
+      enKeys += `<div class="keys caps-shift-ent control" data ="${arrCode[i]}">${chars[i]}</div>`;
     }
     if (arrCode[i] === 'Space') {
       enKeys += `<div class="keys space control" data ="${arrCode[i]}">${chars[i]}</div>`;
     }
     if (arrCode[i] === 'ControlLeft' || arrCode[i] === 'ControlRight') {
-      enKeys += `<div class="keys ctrl control" data ="${arrCode[i]}">${chars[i]}</div>`;
+      enKeys += `<div class="keys ctrl control" data="${arrCode[i]}">${chars[i]}</div>`;
     }
     if (arrCode[i] === 'ArrowUp' || arrCode[i] === 'ArrowDown' || arrCode[i] === 'ArrowLeft' || arrCode[i] === 'ArrowRight') {
       enKeys += `<div class="keys arrows control" data ="${arrCode[i]}">${chars[i]}</div>`;
@@ -99,6 +101,9 @@ const text = document.querySelector('.text');
 
 // Нажать кнопку клавы
 document.addEventListener('keydown', (event) => {
+  if (!arrCode.includes(event.code)) {
+    return;
+  }
   text.focus();
   // Смена языка
   if (event.shiftKey && event.altKey) {
@@ -189,6 +194,12 @@ document.addEventListener('keydown', (event) => {
       }
     }
   }
+
+  if (event.ctrlKey || event.altKey) {
+    document.querySelector(`.keys[data="${event.code}"]`).classList.add('active');
+    return;
+  }
+
   if (document.querySelector(`.keys[data="${event.code}"]`).classList.contains('tab')) {
     event.preventDefault();
     text.setRangeText('   ', text.selectionStart, text.selectionEnd);
@@ -206,6 +217,9 @@ document.addEventListener('keydown', (event) => {
 
 // Отжать кнопку клавы
 document.addEventListener('keyup', (event) => {
+  if (!arrCode.includes(event.code)) {
+    return;
+  }
   event.preventDefault();
   document.querySelector(`.keyboard_area .keys[data="${event.code}"]`).classList.remove('active');
   // document.querySelector(`.keys[data="${event.code}"]`).classList.remove('active');
@@ -363,6 +377,72 @@ document.querySelector('.keyboard_area').addEventListener('mousedown', (event) =
       }
     }
     event.target.classList.add('active');
+  }
+});
+
+document.querySelector('.keyboard_area').addEventListener('click', (event) => {
+  text.focus();
+
+  if (event.target.childNodes[0].textContent === 'Tab') {
+    text.setRangeText('   ', text.selectionStart, text.selectionEnd);
+    text.setSelectionRange(text.selectionStart + 3, text.selectionStart + 3);
+  }
+
+  if (event.target.childNodes[0].textContent === ' ') {
+    text.setRangeText(' ', text.selectionStart, text.selectionEnd);
+    text.setSelectionRange(text.selectionStart + 1, text.selectionStart + 1);
+  }
+
+  if (event.target.childNodes[0].textContent === 'Enter') {
+    text.setRangeText('\n', text.selectionStart, text.selectionEnd);
+    text.setSelectionRange(text.selectionStart + 1, text.selectionStart + 1);
+  }
+
+  if (event.target.childNodes[0].textContent === 'Del') {
+    if (text.selectionStart === text.selectionEnd) {
+      text.setRangeText('', text.selectionStart, text.selectionEnd + 1);
+      text.setSelectionRange(text.selectionStart, text.selectionStart);
+    } else {
+      text.setRangeText('', text.selectionStart, text.selectionEnd);
+      text.setSelectionRange(text.selectionStart, text.selectionStart);
+    }
+  }
+
+  if (event.target.childNodes[0].textContent === 'Backspace') {
+    if (text.selectionStart === 0 && text.selectionEnd === 0) {
+      return;
+    }
+    if (text.selectionStart === text.selectionEnd) {
+      text.setRangeText('', text.selectionStart - 1, text.selectionEnd);
+      text.setSelectionRange(text.selectionStart, text.selectionStart);
+    } else {
+      text.setRangeText('', text.selectionStart, text.selectionEnd);
+      text.setSelectionRange(text.selectionStart, text.selectionStart);
+    }
+  }
+  // '🠄', '🠇', '🠆
+  if (event.target.childNodes[0].textContent === '🠄') {
+    if (text.selectionStart === 0 && text.selectionEnd === 0) {
+      return;
+    }
+    text.setSelectionRange(text.selectionStart - 1, text.selectionStart - 1);
+  }
+
+  if (event.target.childNodes[0].textContent === '🠆') {
+    text.setSelectionRange(text.selectionStart + 1, text.selectionStart + 1);
+  }
+
+  if (event.target.childNodes[0].textContent === '🠇') {
+    text.setSelectionRange(text.value.length, text.value.length);
+  }
+
+  if (event.target.childNodes[0].textContent === '🠅') {
+    text.setSelectionRange(0, 0);
+  }
+
+  if (!event.target.classList.contains('control') && event.target.classList.contains('keys')) {
+    text.setRangeText(event.target.innerHTML, text.selectionStart, text.selectionEnd);
+    text.setSelectionRange(text.selectionStart + 1, text.selectionStart + 1);
   }
 });
 
