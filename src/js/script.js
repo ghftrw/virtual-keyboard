@@ -212,6 +212,32 @@ document.addEventListener('keydown', (event) => {
     text.setRangeText(item.innerHTML, text.selectionStart, text.selectionEnd);
     text.setSelectionRange(text.selectionStart + 1, text.selectionStart + 1);
   }
+  if (keys[42].classList.contains('shift-active1') || keys[54].classList.contains('shift-active1')) {
+    keys[42].classList.remove('shift-active1');
+    keys[54].classList.remove('shift-active1');
+    if (localStorage.getItem('language') === 'en') {
+      if (keys[29].classList.contains('caps-active')) {
+        for (let i = 0; i < keys.length; i += 1) {
+          keys[i].innerHTML = enArrKeyCaps[i];
+        }
+      } else {
+        for (let i = 0; i < keys.length; i += 1) {
+          keys[i].innerHTML = enArrKey[i];
+        }
+      }
+    }
+    if (localStorage.getItem('language') === 'ru') {
+      if (keys[29].classList.contains('caps-active')) {
+        for (let i = 0; i < keys.length; i += 1) {
+          keys[i].innerHTML = ruArrKeyCaps[i];
+        }
+      } else {
+        for (let i = 0; i < keys.length; i += 1) {
+          keys[i].innerHTML = ruArrKey[i];
+        }
+      }
+    }
+  }
   document.querySelector(`.keys[data="${event.code}"]`).classList.add('active');
 });
 
