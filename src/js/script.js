@@ -8,25 +8,16 @@ const ruArrKeyCaps = ['Ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-
 const ruArrShift = ['Ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', 'Backspace', 'Tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', '/', 'Del', 'CapsLock', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', 'Enter', 'Shift', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', ',', '🠅', 'Shift', 'Ctrl', 'Win', 'Alt', ' ', 'Alt', '🠄', '🠇', '🠆', 'Ctrl'];
 const ruArrShiftCaps = ['ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '/', 'Del', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', ',', '🠅', 'Shift', 'Ctrl', 'Win', 'Alt', ' ', 'Alt', '🠄', '🠇', '🠆', 'Ctrl'];
 
-/* document.addEventListener("keydown", (event) => {
-  ruArrShift.push(event.key);
-  console.log(ruArrShift);
-})
-*/
-// const keyboardArea = document.querySelector('.keyboard_area');
-
 let enKeys = '';
 const title = 'Virtual Keyboard';
 const subtitle1 = 'Клавиатура создана в операционной системе Windows';
 const subtitle2 = 'Для переключения языка: левый Shift + Alt';
 
-// Язык по-умолчанию английский
 if (!localStorage.getItem('language')) {
   localStorage.setItem('language', 'en');
 }
 let lang = localStorage.getItem('language');
 
-// Создаем элементы
 const titleArea = document.createElement('div');
 titleArea.innerHTML = `<h1>${title}</h1>`;
 titleArea.className = 'title';
@@ -46,14 +37,12 @@ subtitleArea.innerHTML = `<p>${subtitle1}</p> <p>${subtitle2}</p>`;
 document.body.append(subtitleArea);
 
 const init = (lang1) => {
-  // Проверка на язык после перезагрузки
   let chars;
   if (lang1 === 'ru') {
     chars = ruArrKey;
   } else {
     chars = enArrKey;
   }
-  // Создаем кнопки
   for (let i = 0; i < chars.length; i += 1) {
     if (arrCode[i] === 'Backspace') {
       enKeys += `<div class="keys backspace control" data ="${arrCode[i]}">${chars[i]}</div>`;
@@ -99,13 +88,11 @@ init(lang);
 const keys = document.querySelectorAll('.keys');
 const text = document.querySelector('.text');
 
-// Нажать кнопку клавы
 document.addEventListener('keydown', (event) => {
   if (!arrCode.includes(event.code)) {
     return;
   }
   text.focus();
-  // Смена языка
   if (event.shiftKey && event.altKey) {
     keys[42].classList.remove('shift-active1');
     if (keys[0].innerHTML === 'ё' || keys[0].innerHTML === 'Ё') {
@@ -120,7 +107,6 @@ document.addEventListener('keydown', (event) => {
       }
     }
   }
-  // Шифт
   if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
     if (localStorage.getItem('language') === 'en') {
       if (keys[29].classList.contains('caps-active')) {
@@ -145,7 +131,6 @@ document.addEventListener('keydown', (event) => {
       }
     }
   }
-  // КапсЛок
   if (event.code === 'CapsLock') {
     if (localStorage.getItem('language') === 'en') {
       if ((keys[42].classList.contains('active') || keys[54].classList.contains('active')) && !keys[29].classList.contains('caps-active')) {
@@ -241,16 +226,13 @@ document.addEventListener('keydown', (event) => {
   document.querySelector(`.keys[data="${event.code}"]`).classList.add('active');
 });
 
-// Отжать кнопку клавы
 document.addEventListener('keyup', (event) => {
   if (!arrCode.includes(event.code)) {
     return;
   }
   event.preventDefault();
   document.querySelector(`.keyboard_area .keys[data="${event.code}"]`).classList.remove('active');
-  // document.querySelector(`.keys[data="${event.code}"]`).classList.remove('active');
 
-  // Чистим после шифта
   if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
     if (localStorage.getItem('language') === 'en') {
       if (keys[29].classList.contains('caps-active')) {
@@ -277,10 +259,8 @@ document.addEventListener('keyup', (event) => {
   }
 });
 
-// Нажатия мыши
 document.querySelector('.keyboard_area').addEventListener('mousedown', (event) => {
   if (event.target.classList.contains('keys')) {
-    // КапсЛок
     if (event.target.childNodes[0].textContent === 'CapsLock') {
       if (localStorage.getItem('language') === 'en') {
         if ((keys[42].classList.contains('shift-active1') || keys[54].classList.contains('shift-active1')) && !keys[29].classList.contains('caps-active')) {
@@ -329,7 +309,7 @@ document.querySelector('.keyboard_area').addEventListener('mousedown', (event) =
         }
       }
     }
-    // Альт
+
     if (event.target.childNodes[0].textContent === 'Alt') {
       if (localStorage.getItem('language') === 'en') {
         if (keys[42].classList.contains('shift-active1') || keys[54].classList.contains('shift-active1')) {
@@ -349,7 +329,7 @@ document.querySelector('.keyboard_area').addEventListener('mousedown', (event) =
         localStorage.setItem('language', 'en');
       }
     }
-    // Шифт
+
     if (event.target.childNodes[0].textContent === 'Shift') {
       if (localStorage.getItem('language') === 'en') {
         if (keys[29].classList.contains('caps-active') && !keys[42].classList.contains('shift-active1') && !keys[54].classList.contains('shift-active1')) {
@@ -446,7 +426,7 @@ document.querySelector('.keyboard_area').addEventListener('click', (event) => {
       text.setSelectionRange(text.selectionStart, text.selectionStart);
     }
   }
-  // '🠄', '🠇', '🠆
+
   if (event.target.childNodes[0].textContent === '🠄') {
     if (text.selectionStart === 0 && text.selectionEnd === 0) {
       return;
@@ -496,7 +476,6 @@ document.querySelector('.keyboard_area').addEventListener('click', (event) => {
   }
 });
 
-// Отжать мышь
 document.querySelector('.keyboard_area').addEventListener('mouseup', () => {
   keys.forEach((item) => {
     item.classList.remove('active');
