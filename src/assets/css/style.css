@@ -56,6 +56,9 @@
   justify-content: center;
   align-items:center;
   user-select: none;
+  position: relative;
+  overflow: hidden;
+  transition: 0.3s all ease;
 }
 
 .key_text {
@@ -66,27 +69,21 @@
   text-align: center;
 }
 
-.clearfix {
-  display: block;
-  width: 100%;
-  clear: both;
-}
-
 .keys:hover {
   border: 1px solid #7BBBD6;
   box-shadow: 0 0 5px #E1F2F9;
-}
+} 
 
 .active {
   background-color:#1D628B;
-  border-radius: 10px;
+  border-radius: 15px;
 }
 
 .backspace {
   width: 145px;
 }
 
-.tab-del {
+.tab {
   width: 66px;
 }
 
@@ -108,7 +105,7 @@
 
 .caps-active {
   background-color:#1D628B;
-  border-radius: 20px;
+  border-radius: 25px;
   color:#A9FFFF;
 }
 
@@ -118,15 +115,19 @@
 
 .shift-active1 {
   background-color:#1D628B;
-  border-radius: 20px;
+  border-radius: 25px;
   color:#A9FFFF;
 }
 .alt-active {
   background-color:#1D628B;
-  border-radius: 20px;
+  border-radius: 25px;
   color:#A9FFFF;
 }
 
 .text-lower {
   text-transform:lowercase;
+}
+
+.del {
+  width: 66px;
 }
